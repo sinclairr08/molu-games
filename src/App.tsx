@@ -1,14 +1,17 @@
 import { useState } from "react";
 import short from "./api/short.json";
+import { useForm } from "react-hook-form";
+
+interface IShortInput {
+  answer: string;
+}
 
 function App() {
   const s0 = short[0];
   const [state, setState] = useState("");
-
-  //@ts-ignore
-  const isValid = (e) => {
-    e.preventDefault();
-    if (e.target[0].value == s0.answer) {
+  const { register, handleSubmit } = useForm<IShortInput>();
+  const isValid = (data: IShortInput) => {
+    if (data.answer == s0.answer) {
       setState("성공!");
     } else {
       setState("땡!");
@@ -27,8 +30,11 @@ function App() {
         <img src={require(`/src/imgs/${s0.imgPath}.png`)} />
       </div>
       <div className="flex justify-center">
-        <form onSubmit={isValid}>
-          <input type="text" className="border border-b border-black " />
+        <form onSubmit={handleSubmit(isValid)}>
+          <input
+            className="border border-b border-black "
+            {...register("answer", { required: true })}
+          />
           <input type="submit" className="cursor-pointer" />
         </form>
       </div>
