@@ -3,7 +3,7 @@ import short from "./api/short.json";
 import { useForm } from "react-hook-form";
 
 interface IShortInput {
-  answer: string;
+  [key: string]: string;
 }
 
 interface IShortQuestion {
@@ -18,16 +18,21 @@ function App() {
   const [shortState, setShortState] = useState<IShortQuestion[]>(short);
   const { register, handleSubmit, resetField } = useForm<IShortInput>();
 
-  const isValid = (data: IShortInput, index: number) => {
-    setShortState((prev) => [
-      ...prev.slice(0, index),
-      {
-        ...prev[index],
-        isAnswer: data.answer == prev[index].answer,
-      },
-      ...prev.slice(index + 1),
-    ]);
-    console.log(shortState);
+  const isValid = (data: IShortInput) => {
+    console.log(data);
+
+    for (let i = 0; i < shortState.length; i++) {
+      const submit = data[`answer${i}`];
+
+      setShortState((prev) => [
+        ...prev.slice(0, i),
+        {
+          ...prev[i],
+          isAnswer: submit === prev[i].answer,
+        },
+        ...prev.slice(i + 1),
+      ]);
+    }
   };
 
   return (
@@ -35,35 +40,36 @@ function App() {
       <div className="flex justify-center">
         <h1 className="text-xl text-sky-500">Blue Archive Quiz Site</h1>
       </div>
-      {shortState.map((shortQuestion, index) => (
-        <div key={shortQuestion.question}>
-          <div className="flex justify-center">
-            {shortQuestion.problemNo}: {shortQuestion.question}
-          </div>
-          {shortQuestion.imgPath && (
+      <form onSubmit={handleSubmit(isValid)}>
+        {shortState.map((shortQuestion, index) => (
+          <div key={shortQuestion.question}>
             <div className="flex justify-center">
-              <img src={require(`/src/imgs/${shortQuestion.imgPath}.png`)} />
+              {shortQuestion.problemNo}: {shortQuestion.question}
             </div>
-          )}
-          <div className="flex justify-center">
-            <form onSubmit={handleSubmit((data) => isValid(data, index))}>
+            {shortQuestion.imgPath && (
+              <div className="flex justify-center">
+                <img src={require(`/src/imgs/${shortQuestion.imgPath}.png`)} />
+              </div>
+            )}
+            <div className="flex justify-center">
               <input
                 className="border border-b border-black "
-                key={index}
-                {...register("answer")}
+                {...register(`answer${index}`)}
               />
-              <input type="submit" className="cursor-pointer" />
-            </form>
-          </div>
-          {shortQuestion.isAnswer != undefined ? (
-            <div className="flex justify-center">
-              {shortQuestion.isAnswer == true ? "성공" : "땡"}
             </div>
-          ) : (
-            <></>
-          )}
+            {shortQuestion.isAnswer != undefined ? (
+              <div className="flex justify-center">
+                {shortQuestion.isAnswer == true ? "성공" : "땡"}
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+        ))}
+        <div className="flex justify-center">
+          <input type="submit" className="cursor-pointer" />
         </div>
-      ))}
+      </form>
     </div>
   );
 }
