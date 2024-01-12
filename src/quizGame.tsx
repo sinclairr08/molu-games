@@ -4,12 +4,9 @@ import select from "./api/select.json";
 import ShortQuiz from "./shortQuiz";
 import SelectQuiz from "./selectQuiz";
 
-function App() {
+export default function QuizGame() {
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <div className="flex justify-center">
-        <h1 className="text-xl text-sky-500">Blue Archive Quiz Site</h1>
-      </div>
+    <div className="pb-12">
       {short.map((shortQuiz) => (
         <ShortQuiz key={shortQuiz.question} {...shortQuiz} />
       ))}
@@ -19,5 +16,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
