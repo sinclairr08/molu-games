@@ -38,9 +38,9 @@ export default function ShortQuiz(quiz: IShortQuiz) {
           <input type="submit" className="cursor-pointer" />
         </form>
       </div>
-      {isAnswer != undefined ? (
+      {isAnswer !== undefined ? (
         <div className="flex justify-center">
-          {isAnswer == true ? "성공" : "땡"}
+          {isAnswer === true ? "성공" : "땡"}
         </div>
       ) : (
         <></>

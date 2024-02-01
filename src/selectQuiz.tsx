@@ -19,7 +19,7 @@ export default function SelectQuiz(quiz: ISelectQuiz) {
 
   const isValid = (data: ISelectInput) => {
     // 왜 === 일 때 안 되는지
-    setIsAnswer(data.answerIndex == quiz.answerIndex);
+    setIsAnswer(data.answerIndex === quiz.answerIndex);
   };
   return (
     <div key={quiz.question} className="pb-12">
@@ -46,9 +46,9 @@ export default function SelectQuiz(quiz: ISelectQuiz) {
           <input type="submit" className="cursor-pointer" />
         </form>
       </div>
-      {isAnswer != undefined ? (
+      {isAnswer !== undefined ? (
         <div className="flex justify-center">
-          {isAnswer == true ? "성공" : "땡"}
+          {isAnswer === true ? "성공" : "땡"}
         </div>
       ) : (
         <></>
