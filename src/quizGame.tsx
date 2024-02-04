@@ -1,5 +1,6 @@
 import short from "./api/short.json";
 import select from "./api/select.json";
+import music from "./api/music.json";
 
 import ShortQuiz from "./shortQuiz";
 import SelectQuiz from "./selectQuiz";
@@ -15,7 +16,7 @@ export default function QuizGame() {
         <SelectQuiz key={selectQuiz.question} {...selectQuiz} />
       ))} */}
 
-      <MusicQuiz />
+      <MusicQuiz {...music[0]} />
     </div>
   );
 }
