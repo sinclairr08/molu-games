@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import SelectItem from "./selectItem";
 
 interface ISelectInput {
   answerIndex: number;
@@ -14,7 +15,7 @@ export interface IMusicSelectQuiz {
 }
 
 export default function MusicQuiz(quiz: IMusicSelectQuiz) {
-  const { register, handleSubmit } = useForm<ISelectInput>();
+  const { register, handleSubmit, watch } = useForm<ISelectInput>();
   const [isAnswer, setIsAnswer] = useState<boolean | undefined>();
 
   const isValid = (data: ISelectInput) => {
@@ -39,16 +40,13 @@ export default function MusicQuiz(quiz: IMusicSelectQuiz) {
         <form onSubmit={handleSubmit(isValid)}>
           <div className="flex flex-col">
             {quiz.answerList.map((answerItem, i) => (
-              <label key={i}>
-                {i + 1}
-                <input
-                  type="radio"
-                  className="sr-only"
-                  value={i + 1}
-                  {...register("answerIndex")}
-                />
-                {answerItem}
-              </label>
+              <SelectItem
+                key={i}
+                register={register}
+                index={i}
+                answerItem={answerItem}
+                isCurrentClicked={watch("answerIndex") == i + 1}
+              />
             ))}
 
             <input type="submit" className="cursor-pointer" />
