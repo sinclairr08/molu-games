@@ -5,6 +5,7 @@ import music from "./api/music.json";
 import ShortQuiz from "./shortQuiz";
 import SelectQuiz from "./selectQuiz";
 import MusicQuiz from "./musicQuiz";
+import { Link } from "react-router-dom";
 
 export default function QuizGame() {
   return (
@@ -16,7 +17,15 @@ export default function QuizGame() {
         <SelectQuiz key={selectQuiz.question} {...selectQuiz} />
       ))} */}
 
-      <MusicQuiz {...music[0]} />
+      <Link to={"/quizs/music"}>
+        <div className="flex justify-center mt-4">
+          <button className="p-4 border-2 rounded-md border-gray-500">
+            Music Quizs
+          </button>
+        </div>
+      </Link>
+
+      {/* <MusicQuiz {...music[0]} />  */}
     </div>
   );
 }

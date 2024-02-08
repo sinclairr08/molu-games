@@ -19,7 +19,6 @@ export default function MusicQuiz(quiz: IMusicSelectQuiz) {
   const [isAnswer, setIsAnswer] = useState<boolean | undefined>();
 
   const isValid = (data: ISelectInput) => {
-    console.log(data);
     // 왜 === 일 때 안 되는지
     setIsAnswer(data.answerIndex == quiz.answerIndex);
   };
