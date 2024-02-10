@@ -22,8 +22,15 @@ export default function SelectItem(data: ISelectItem) {
         isCurrentClicked ? "text-red-500" : "text-neutral-800"
       )}
     >
-      <label>
-        {index + 1}
+      <label className="">
+        <span
+          className={cls(
+            "m-1 px-1.5 border-2 rounded-full",
+            isCurrentClicked ? "border-red-500" : "border-neutral-800"
+          )}
+        >
+          {index + 1}
+        </span>
         <input
           type="radio"
           className="sr-only"

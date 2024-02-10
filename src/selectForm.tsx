@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import SelectItem from "./selectItem";
+import SelectItem from "./components/selectItem";
 import { IMusicSelectQuiz } from "./musicQuiz";
+import SubmitButton from "./components/submitButton";
+import AnswerButton from "./components/answerButton";
 
 interface ISelectInput {
   answerIndex: number;
@@ -19,7 +21,7 @@ export default function SelectForm(quiz: IMusicSelectQuiz) {
     <>
       <div className="flex justify-center">
         <form onSubmit={handleSubmit(isValid)}>
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-2">
             {quiz.answerList &&
               quiz.answerList.map((answerItem, i) => (
                 <SelectItem
@@ -31,15 +33,11 @@ export default function SelectForm(quiz: IMusicSelectQuiz) {
                 />
               ))}
 
-            <input type="submit" className="cursor-pointer" />
+            <SubmitButton />
           </div>
         </form>
       </div>
-      {isAnswer !== undefined && (
-        <div className="flex justify-center">
-          {isAnswer === true ? "정답입니다!" : "틀렸습니다!"}
-        </div>
-      )}
+      <AnswerButton isAnswer={isAnswer} />
     </>
   );
 }

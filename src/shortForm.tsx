@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import SelectItem from "./selectItem";
+import SelectItem from "./components/selectItem";
 import { IMusicSelectQuiz } from "./musicQuiz";
+import SubmitButton from "./components/submitButton";
+import ShortInput from "./components/shortInput";
+import AnswerButton from "./components/answerButton";
 
 interface IShortInput {
   answer: string;
@@ -18,19 +21,14 @@ export default function ShortForm(quiz: IMusicSelectQuiz) {
     <>
       <div className="flex justify-center">
         <form onSubmit={handleSubmit(isValid)}>
-          <input
-            className="border border-b border-black "
-            {...register("answer")}
-          />
+          <div className="flex flex-col space-y-2">
+            <ShortInput register={register("answer")} />
 
-          <input type="submit" className="cursor-pointer" />
+            <SubmitButton />
+          </div>
         </form>
       </div>
-      {isAnswer !== undefined && (
-        <div className="flex justify-center">
-          {isAnswer === true ? "정답입니다!" : "틀렸습니다!"}
-        </div>
-      )}
+      <AnswerButton isAnswer={isAnswer} />
     </>
   );
 }

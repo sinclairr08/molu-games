@@ -13,7 +13,7 @@ export interface IMusicSelectQuiz {
 
 export default function MusicQuiz(quiz: IMusicSelectQuiz) {
   return (
-    <div key={quiz.question} className="pb-12">
+    <div key={quiz.question} className="flex flex-col space-y-4 pb-12">
       <div className="flex justify-center">
         {quiz.problemNo}: {quiz.question}
       </div>
