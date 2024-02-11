@@ -1,11 +1,13 @@
+import AudioItem from "./components/audioItem";
 import SelectForm from "./selectForm";
+import SelectMusicForm from "./selectMusicForm";
 import ShortForm from "./shortForm";
 
 export interface IMusicSelectQuiz {
   problemNo: number;
   problemType: string;
   question: string;
-  musicPath: string;
+  musicPath?: string;
   answer?: string;
   answerList?: string[];
   answerIndex?: number;
@@ -18,14 +20,12 @@ export default function MusicQuiz(quiz: IMusicSelectQuiz) {
         {quiz.problemNo}: {quiz.question}
       </div>
 
-      {quiz.musicPath && (
-        <div className="flex justify-center">
-          <audio controls src={require(`/src/music/${quiz.musicPath}.mp3`)} />
-        </div>
-      )}
+      {quiz.musicPath && <AudioItem path={quiz.musicPath} />}
 
       {quiz.problemType == "select" ? (
         <SelectForm {...quiz} />
+      ) : quiz.problemType == "musicSelect" ? (
+        <SelectMusicForm {...quiz} />
       ) : (
         <ShortForm {...quiz} />
       )}
